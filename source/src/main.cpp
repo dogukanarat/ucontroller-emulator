@@ -21,11 +21,14 @@
  * */
 
 #include <iostream>
+#include "i2c.h"
 
 using namespace std;
 
 int main(int argc, const char * argv[])
 {
+    EmbeddedCommunication::I2C* moduleI2c = new EmbeddedCommunication::I2C();
+    
     printf("This is cpp template");
 
     return 0;
