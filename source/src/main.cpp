@@ -21,13 +21,26 @@
  * */
 
 #include <iostream>
+#include "communication.h"
 #include "i2c.h"
+#include "spi.h"
 
 using namespace std;
 
 int main(int argc, const char * argv[])
 {
-    EmbeddedCommunication::I2C* moduleI2c = new EmbeddedCommunication::I2C();
+    Interface::Communication* moduleI2c = new EmbeddedCommunication::I2C();
+    Interface::Communication* moduleSpi = new EmbeddedCommunication::SPI();
+    
+    moduleI2c->setBusConfiguration({
+        .id = EmbeddedCommunication::I2C::BUS_SPEED,
+        .value = EmbeddedCommunication::I2C::SLOW_BUS
+    });
+
+    moduleSpi->setBusConfiguration({
+        .id = EmbeddedCommunication::SPI::NUM_OF_CHANNEL,
+        .value = EmbeddedCommunication::SPI::CHANNEL_NUM_4,
+    });
     
     printf("This is cpp template");
 
