@@ -1,3 +1,6 @@
+#ifndef _INC_COMMUNICATION_H
+#define _INC_COMMUNICATION_H
+
 #include <stdint.h>
 
 namespace Interface
@@ -17,15 +20,16 @@ namespace Interface
     class Communication
     {
         public:
-        Communication();
-        virtual ~Communication();
+        Communication() {};
+        virtual ~Communication() {};
         
         virtual void open() = 0;
         virtual void close() = 0;
-        virtual void setBusConfiguration(BusConfigurationParameter& parameter) = 0;
+        virtual void setBusConfiguration(const BusConfigurationParameter parameter) = 0;
         virtual void getBusConfigration(BusConfigurationParameter& parameter) = 0;
-        virtual void read(BufferParameter& buffer) = 0;
+        virtual void read(const BufferParameter buffer) = 0;
         virtual void write(BufferParameter& buffer) = 0;
 
     };
 }
+#endif
