@@ -26,7 +26,11 @@ if [ $1 = 'run' ]
     then
     if [ $2 = 'emulator' ]
         then
-        ./build/source/emulator
+        ./build/source/app_emulator
+    fi
+    if [ $2 = 'stm' ]
+        then
+        ./build/source/app_stm
     fi
 fi
 
@@ -36,8 +40,3 @@ if [ $1 = 'clean' ]
     rm -f -r build
     rm -f -r install
 fi
-
-
-
-
-

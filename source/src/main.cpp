@@ -26,12 +26,21 @@ using namespace std;
 
 int main(int argc, const char * argv[])
 {
+    #ifdef EMULATOR
+    UController::Interface::Communication* AdapteeI2C = new UController::Emulator::I2C();
+    UController::Interface::Communication* AdapteeSPI = new UController::Emulator::SPI();
+    #endif
+
+    #ifdef STM
+    UController::Interface::Communication* AdapteeI2C = new UController::Stm::I2C();
+    UController::Interface::Communication* AdapteeSPI = new UController::Stm::SPI();
+    #endif
+
     UController::Adapter::I2C* I2C = new UController::Adapter::I2C();
     UController::Adapter::SPI* SPI = new UController::Adapter::SPI();
-    UController::Interface::Communication* EmulatorI2C = new UController::Emulator::I2C();
-    UController::Interface::Communication* EmulatorSPI = new UController::Emulator::SPI();
-    I2C->setAdaptee(EmulatorI2C);
-    SPI->setAdaptee(EmulatorSPI);
+
+    I2C->setAdaptee(AdapteeI2C);
+    SPI->setAdaptee(AdapteeSPI);
 
     I2C->setBusConfiguration({
         .id = UController::Interface::I2C::BUS_SPEED,
@@ -42,6 +51,9 @@ int main(int argc, const char * argv[])
         .id = UController::Interface::SPI::NUM_OF_CHANNEL,
         .value = UController::Interface::SPI::CHANNEL_NUM_4,
     });
+
+    I2C->open();
+    SPI->open();
     
     cout << "This is cpp template" << endl;
 
