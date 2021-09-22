@@ -20,29 +20,30 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * */
 
-#include <iostream>
-#include "communication.h"
-#include "i2c.h"
-#include "spi.h"
+#include "main.h"
 
 using namespace std;
 
 int main(int argc, const char * argv[])
 {
-    Interface::Communication* moduleI2c = new EmbeddedCommunication::I2C();
-    Interface::Communication* moduleSpi = new EmbeddedCommunication::SPI();
-    
-    moduleI2c->setBusConfiguration({
-        .id = EmbeddedCommunication::I2C::BUS_SPEED,
-        .value = EmbeddedCommunication::I2C::SLOW_BUS
+    UController::Adapter::I2C* I2C = new UController::Adapter::I2C();
+    UController::Adapter::SPI* SPI = new UController::Adapter::SPI();
+    UController::Interface::Communication* EmulatorI2C = new UController::Emulator::I2C();
+    UController::Interface::Communication* EmulatorSPI = new UController::Emulator::SPI();
+    I2C->setAdaptee(EmulatorI2C);
+    SPI->setAdaptee(EmulatorSPI);
+
+    I2C->setBusConfiguration({
+        .id = UController::Interface::I2C::BUS_SPEED,
+        .value = UController::Interface::I2C::SLOW_BUS
     });
 
-    moduleSpi->setBusConfiguration({
-        .id = EmbeddedCommunication::SPI::NUM_OF_CHANNEL,
-        .value = EmbeddedCommunication::SPI::CHANNEL_NUM_4,
+    SPI->setBusConfiguration({
+        .id = UController::Interface::SPI::NUM_OF_CHANNEL,
+        .value = UController::Interface::SPI::CHANNEL_NUM_4,
     });
     
-    printf("This is cpp template");
+    cout << "This is cpp template" << endl;
 
     return 0;
 }

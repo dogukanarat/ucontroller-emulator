@@ -1,1 +1,4 @@
 add_subdirectory(googletest)
+add_subdirectory(ucontrollerstm)
+add_subdirectory(ucontrolleremulator)
+add_subdirectory(ucontrollerinterface)
